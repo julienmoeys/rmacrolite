@@ -106,3 +106,12 @@ pdu_detach( pkgName = pkgName )
 
 pdu_rd2pdf( pkgName = pkgName, pkgDir = pkgDir, 
     buildDir = buildDir )
+
+
+
+# +--------------------------------------------------------+
+# | Copy source and zip binaries to local repos            |
+# +--------------------------------------------------------+
+
+pdu_copy_to_repos( pkgName = pkgName, pkgDir = pkgDir, 
+    buildDir = buildDir, local_repos = local_repos )
