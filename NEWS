@@ -1,0 +1,18 @@
+    
+    package: 'rmacrolite'
+
+CHANGES IN VERSION 0.1.1
+    
+    2017/09/25  Created a git repository for the package.
+        First test compilation.
+        
+        
+    
+CHANGES IN VERSION 0.1.0
+    
+    2017/09/15  Start to prepare a package
+        The code is based on the code of the R package 
+        `rmacro` develloped during the research project 
+        "PERFORM", managed by INRA. `rmacro` was develloped 
+        by Julien Moeys while at SLU/CKB.
+        

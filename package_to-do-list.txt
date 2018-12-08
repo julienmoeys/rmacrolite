@@ -1,0 +1,11 @@
+    
+*   add an option long = FALSE to the function retrieving 
+    parameters from par-files, to export tables in long 
+    format instead of wide format:
+    
+    param    v1  v2  v3  v4  v5  v6
+    -------------------------------
+    layer_no  1   2   3   4   5   6
+    ...
+    
+*   
