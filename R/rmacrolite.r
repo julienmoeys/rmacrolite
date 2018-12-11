@@ -111,7 +111,6 @@ rmlParList  <- new.env()
 .rmlParList[[ "id_range" ]] <- c( 1L, 999L ) 
 # .rmlParList[[ "exeparfilePath" ]]    <- character(0)
 .rmlParList[[ "log_width" ]] <- 80L # 80 char is ~1 row with font size 10 in courier new
-.rmlParList[[ "last_call" ]] <- NULL 
 
 
 
@@ -297,9 +296,6 @@ rmlParList  <- new.env()
 #'  (maximum number of characters). Notice that some messages 
 #'  may get larger.
 #'
-#'@param last_call
-#'  Internal use.
-#'
 #'
 #'@seealso \code{\link{getRmlPar}}.
 #'
@@ -330,8 +326,7 @@ rmlPar <- function(
     digits_parfile_k, 
     digits_dt50_depth_f, 
     id_range, 
-    log_width, 
-    last_call
+    log_width 
 ){  
     parList <- names( formals(rmlPar) ) 
     parList <- parList[ !(parList %in% c( "par", "reset" )) ] 
