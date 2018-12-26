@@ -4618,12 +4618,20 @@ rmacroliteInfo.macroParFile <- function(
                     stringsAsFactors = FALSE 
                 )   
                 
-                x[[ "par" ]] <- rbind(
-                    x[[ "par" ]][ 
-                        1L:(min(which(sel_row))-1L), ], 
-                    application_info, 
-                    x[[ "par" ]][ 
-                        (max(which(sel_row))+1L):nrow(x[[ "par" ]]), ] )   
+                if( max(which(sel_row) == nrow(x[[ "par" ]]) ){
+                    x[[ "par" ]] <- rbind(
+                        x[[ "par" ]][ 
+                            1L:(min(which(sel_row))-1L), ], 
+                        application_info ) 
+                    
+                }else{
+                    x[[ "par" ]] <- rbind(
+                        x[[ "par" ]][ 
+                            1L:(min(which(sel_row))-1L), ], 
+                        application_info, 
+                        x[[ "par" ]][ 
+                            (max(which(sel_row))+1L):nrow(x[[ "par" ]]), ] )   
+                }   
                 
                 rownames( x[[ "par" ]] ) <- NULL 
             }   
