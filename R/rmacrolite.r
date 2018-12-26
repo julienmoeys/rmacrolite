@@ -105,8 +105,9 @@ rmlParList  <- new.env()
 .rmlParList[[ "macro_path_default" ]] <- "C:\\swash\\macro"
 .rmlParList[[ "macro_exe_default" ]] <- "Macro52Model.exe"
 .rmlParList[[ "macro_exeparfile_default" ]] <- "exeparfile.exe"
-.rmlParList[[ "digits_parfile_k" ]] <- c( "parent" = 8L, 
-    "metabolite" = 9L ) 
+# .rmlParList[[ "digits_parfile_k" ]] <- c( "parent" = 8L, 
+    # "metabolite" = 9L ) 
+.rmlParList[[ "digits_parfile_k" ]] <- 7L 
 .rmlParList[[ "digits_dt50_depth_f" ]] <- 4L 
 .rmlParList[[ "id_range" ]] <- c( 1L, 999L ) 
 # .rmlParList[[ "exeparfilePath" ]]    <- character(0)
@@ -274,12 +275,10 @@ rmlParList  <- new.env()
 #'  (see above).
 #'
 #'@param digits_parfile_k
-#'  Vector of two named integer values (\code{"parent"} and 
-#'  \code{"metabolite"}). Number of digits to be used when 
-#'  rounding degradation rates (DEMAL, DEGMAS, DEGMIL, DEGMIS) 
-#'  in the par-file when modifying degradation parameters, 
-#'  for parent-substances (i.e. the applied substance) and 
-#'  metabolites, respectively.
+#'  Single integer values. Number of significant digits to be 
+#'  used when rounding degradation rates (DEMAL, DEGMAS, 
+#'  DEGMIL, DEGMIS) in the par-file when modifying degradation 
+#'  parameters.
 #'
 #'@param digits_dt50_depth_f
 #'  Single integer value. Number of digits to be used when 
@@ -3913,11 +3912,11 @@ rmacroliteDegradation.macroParFile <- function(
     #   Number of digits when rounding the depth-factor 
     #   of the half life:
     digits_parfile_k <- getRmlPar( "digits_parfile_k" ) 
-    is_metabolite <- rmacroliteSimType( x = x )[[ "type" ]] %in% 3L:4L
-    digits_parfile_k <- ifelse( 
-        test = is_metabolite, 
-        yes  = digits_parfile_k["metabolite"], 
-        no   = digits_parfile_k["parent"] )
+    # is_metabolite <- rmacroliteSimType( x = x )[[ "type" ]] %in% 3L:4L
+    # digits_parfile_k <- ifelse( 
+        # test = is_metabolite, 
+        # yes  = digits_parfile_k["metabolite"], 
+        # no   = digits_parfile_k["parent"] )
     
     #   Fetch current degradation parameters
     dt50_x <- rmacroliteDegradation( x = x )
@@ -3946,9 +3945,9 @@ rmacroliteDegradation.macroParFile <- function(
     for( nm in c( "DEGMAL", "DEGMAS", "DEGMIL", "DEGMIS" ) ){
         x <- rmacroliteChangeParam( x = x, p = data.frame( 
             "tag"    = sprintf( "%s\t%s\t%s", nm, 1:n, "%s" ), 
-            "values" = round( ( logb( 2 ) / 
+            "values" = signif( x = ( logb( 2 ) / 
                 as.numeric(value[[ "dt50" ]]) ) * 
-                dt50_depth_f, digits_parfile_k ), 
+                dt50_depth_f, digits = digits_parfile_k ), 
             "type"   = "SOLUTE PARAMETERS", 
             "set_id" = rep( 1L, n ), 
             stringsAsFactors = FALSE ) )[[ 1L ]]
