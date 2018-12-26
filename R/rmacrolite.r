@@ -5594,7 +5594,11 @@ rmacroliteApplications.macroParFile <- function(
     #   Set the concentration to 'conci' for all irrigation events
     x <- rmacroliteChangeParam( x = x, p = data.frame( 
         "tag"    = rep( "CONCI\t%s", n_irr ), 
-        "values" = format( conci, scientific = FALSE ), 
+        "values" = gsub( 
+            x           = format( conci, scientific = FALSE ), 
+            pattern     = " ", 
+            replacement = "", 
+            fixed       = TRUE ),  
         "type"   = rep( "IRRIGATION PARAMETERS", n_irr ), 
         "set_id" = rep( 1L, n_irr ), 
         "tagNb"  = 1:n_irr, 
