@@ -1,6 +1,19 @@
     
     package: 'rmacrolite'
 
+CHANGES IN VERSION 0.9.1
+    
+    2018/12/26 In rmacroliteApplications(), when modifying CONCI, 
+        a leading space was accidentally left in the case of 
+        multiple applications per year with different application 
+        rates. Now fixed.
+    
+    2018/12/26 In rmacroliteDegradation(), the degradation 
+        rate is now rounded to a number of significant figures 
+        rather than a number of significant digits after 
+        the decimal mark. The same rounding is adopted for 
+        parent and metabolites.
+    
 CHANGES IN VERSION 0.9.0
     
     2018/12/08  Created a git repository for the package.

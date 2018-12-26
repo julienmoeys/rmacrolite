@@ -8,7 +8,7 @@ rmlPar(par = NULL, reset = FALSE, encoding, maxPathLength,
   fileNameTemplate, idWidth, timeFormat, tz, errorKeywords, handleErrors,
   balanceFile, macro_path, macro_exe, macro_exeparfile, macro_path_default,
   macro_exe_default, macro_exeparfile_default, digits_parfile_k,
-  digits_dt50_depth_f, id_range, log_width, last_call)
+  digits_dt50_depth_f, id_range, log_width)
 }
 \arguments{
 \item{par}{Three possible cases: \itemize{ \item If \code{par} is \code{NULL}
@@ -122,12 +122,10 @@ the 1st place, when it exists, or alternatively the value in
 \item{macro_exeparfile_default}{Single character string. Default value for \code{macro_exeparfile} 
 (see above).}
 
-\item{digits_parfile_k}{Vector of two named integer values (\code{"parent"} and 
-\code{"metabolite"}). Number of digits to be used when 
-rounding degradation rates (DEMAL, DEGMAS, DEGMIL, DEGMIS) 
-in the par-file when modifying degradation parameters, 
-for parent-substances (i.e. the applied substance) and 
-metabolites, respectively.}
+\item{digits_parfile_k}{Single integer values. Number of significant digits to be 
+used when rounding degradation rates (DEMAL, DEGMAS, 
+DEGMIL, DEGMIS) in the par-file when modifying degradation 
+parameters.}
 
 \item{digits_dt50_depth_f}{Single integer value. Number of digits to be used when 
 rounding the factor describing DT50 decrease with depth 
@@ -140,8 +138,6 @@ MACRO RUNID.}
 \item{log_width}{Single integer value. Width of the log output messages 
 (maximum number of characters). Notice that some messages 
 may get larger.}
-
-\item{last_call}{Internal use.}
 }
 \description{
 Get or set default parameters for the package. Notice changes done to the
