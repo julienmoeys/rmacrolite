@@ -5110,6 +5110,20 @@ rmacroliteSimType.macroParFile <- function(
             "type"   = "SETUP", 
             stringsAsFactors = FALSE ) )[[ 1L ]]
         
+        #   Set layered output parameter tag that 
+        #   for some reason changes from 1 to -1 with 
+        #   metabolites.
+        new_output <- data.frame(
+            "from"  = c( "DEGMIC\t1\t0\tG", "DEGMAC\t1\t0\tG" ), 
+            "to"    = c( "DEGMIC\t-1\t0\tG", "DEGMAC\t-1\t0\tG" ), 
+            stringsAsFactors = FALSE ) 
+        
+        for( i in 1:nrow( new_output ) ){
+            x[[ "par" ]][ 
+                x[[ "par" ]][ , "parFile" ] == new_output[ i, "from" ], 
+                "parFile" ] <- new_output[ i, "to" ]
+        }   
+        
         rmacroliteInfo( x = x ) <- c( "type" = "metabolite" )
         
     }else if( type == 4L ){    
@@ -5592,8 +5606,8 @@ rmacroliteApplications.macroParFile <- function(
     
     conci <- as.numeric( conci ) 
     
-    if( keep0conc ){
-        conci[ conc_is_zero ] <- 0 
+    if( keep0conc & any( conc_is_zero ) ){
+        conci[ conc_is_zero ] <- rep( 0, times = length( conci ) )
     }   
     
     n_irr <- length( amir )
@@ -5611,7 +5625,7 @@ rmacroliteApplications.macroParFile <- function(
         "tagNb"  = 1:n_irr, 
         stringsAsFactors = FALSE ) )[[ 1L ]]
     
-    if( keep0conc ){
+    if( keep0conc & any( conc_is_zero ) ){
         irrday0 <- as.numeric( rmacroliteGet1Param( 
             x    = x, 
             pTag = "IRRDAY\t%s", 
