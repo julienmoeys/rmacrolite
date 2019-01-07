@@ -5114,8 +5114,8 @@ rmacroliteSimType.macroParFile <- function(
         #   for some reason changes from 1 to -1 with 
         #   metabolites.
         new_output <- data.frame(
-            "from"  = c( "DEGMIC\t1\t0\tG", "DEGMAC\t1\t0\tG" ), 
-            "to"    = c( "DEGMIC\t-1\t0\tG", "DEGMAC\t-1\t0\tG" ), 
+            "from"  = c( "DEGMIC\t-1\t0\tG", "DEGMAC\t-1\t0\tG" ), 
+            "to"    = c( "DEGMIC\t1\t0\tG", "DEGMAC\t1\t0\tG" ), 
             stringsAsFactors = FALSE ) 
         
         for( i in 1:nrow( new_output ) ){
