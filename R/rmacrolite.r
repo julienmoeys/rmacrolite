@@ -5607,7 +5607,8 @@ rmacroliteApplications.macroParFile <- function(
     conci <- as.numeric( conci ) 
     
     if( keep0conc & any( conc_is_zero ) ){
-        conci[ conc_is_zero ] <- rep( 0, times = length( conci ) )
+        conci[ conc_is_zero ] <- rep( 0, 
+            times = length( conci[ conc_is_zero ] ) ) 
     }   
     
     n_irr <- length( amir )
