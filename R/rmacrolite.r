@@ -4595,7 +4595,7 @@ rmacroliteInfo.macroParFile <- function(
                 appln <- rmacroliteApplications( x = x )
                 appln <- unique( appln )
                 
-                if( nrow( appln ) > 1L ){
+                if( (nrow( appln ) > 1L) & (!all(appln[, "g_as_per_ha" ] == 0)) ){
                     appln <- appln[ appln[, "g_as_per_ha" ] != 0, ]
                 }   
                 
