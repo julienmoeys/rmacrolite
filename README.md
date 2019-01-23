@@ -1,7 +1,7 @@
 
-[R][r] interface for for [MACRO][macro], a model of water 
+[R][r] interface for [MACRO][macro], a model of water 
 flow and solute transport in macroporous soil, 
-and its regulatory variant [MACRO In FOCUS][macroinfocus]. 
+or its regulatory variant [MACRO In FOCUS][macroinfocus]. 
 The [package][r_packages] provides functions to read, write 
 and modify the model parameter files (`.par`-files). Parameter 
 modifications are done either with low-level generic functions, 
@@ -26,11 +26,11 @@ installation of MACRO or MACRO In FOCUS.
     production purpose, as the interface may still evolve if 
     needed.
     
-*   **General information**: [DESCRIPTION](DESCRIPTION) 
+*   **General information**: See [DESCRIPTION](DESCRIPTION) 
     (including author(s), package-version, minimum R version 
     required, ...).
     
-*   **Change log**: [NEWS](NEWS).
+*   **Change log**: See [NEWS](NEWS).
     
 *   **Operating system**: `rmacrolite` will only work on 
     Windows, because MACRO is a Windows-only 
@@ -101,6 +101,8 @@ downloaded, so that it is installed.
 When done, type `library("macroutils2")` and then 
 `library("rmacrolite")` to check if the installation was 
 successful.
+
+
 
 _Method 2_ (install the zip binary package using the command 
 line):
