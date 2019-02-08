@@ -74,7 +74,7 @@ rm( par_file_path_1appln, par_file_1appln, par_file_1appln_b,
 
 #   Path to the example par-file
 par_file_path_2appln <- system.file( "par-files", 
-    "chat_winCer_GW-X_900gHa_d182_850gHa_d189.par", 
+    "chat_winCer_GW-X_900gHa_d182_850gHa_d189_900gHa.par", 
     package = "rmacrolite" ) 
 
 #   Import the example par-file
