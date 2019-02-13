@@ -1,6 +1,12 @@
     
     package: 'rmacrolite'
 
+CHANGES IN VERSION 0.9.4
+    
+    2019/02/13  Renamed an example par-file that possibly 
+        made Pandoc vignettes to crash because of a too 
+        long file name in R examples
+    
 CHANGES IN VERSION 0.9.3
     
     2019/01/19 Fix bug in `rmacroliteInfo<-.macroParFile`
