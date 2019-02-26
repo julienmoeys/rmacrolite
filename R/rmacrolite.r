@@ -5750,7 +5750,7 @@ rmacroliteApplications.macroParFile <- function(
 #'
 #'@export 
 #'
-#'@usage \method{rmacroliteApplications}{macroParFile}(x, keep0conc = TRUE, ...) <- value
+#'@usage \method{rmacroliteApplications}{macroParFile}(x, keep0conc = TRUE, focus_mode = "no", ...) <- value
 #'
 `rmacroliteApplications<-.macroParFile` <- function( 
     x, 

@@ -14,7 +14,7 @@ rmacroliteApplications(x, ...)
 
 rmacroliteApplications( x, keep0conc = TRUE, focus_mode = "no", ... ) <- value
 
-\method{rmacroliteApplications}{macroParFile}(x, keep0conc = TRUE, ...) <- value
+\method{rmacroliteApplications}{macroParFile}(x, keep0conc = TRUE, focus_mode = "no", ...) <- value
 }
 \arguments{
 \item{x}{A \code{macroParFile}, as imported with 
