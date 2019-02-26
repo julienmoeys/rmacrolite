@@ -1,6 +1,16 @@
     
     package: 'rmacrolite'
 
+CHANGES IN VERSION 0.9.5
+    
+    2019/02/18  rmacroliteApplications() now has an argument 
+        'focus_mode' that can be set to 'gw' to set the 
+        all the irrigation parameters like MACRO In FOCUS, 
+        and skip using a par-file with the right number of 
+        years interval between applications and the right 
+        number of applications per year. rmacroliteApplications() 
+        accounts for that automatically.
+    
 CHANGES IN VERSION 0.9.4
     
     2019/02/13  Renamed an example par-file that possibly 

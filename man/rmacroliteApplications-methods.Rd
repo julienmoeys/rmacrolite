@@ -32,6 +32,19 @@ When set to \code{FALSE} even irrigation events
 with a zero concentration in the original par-file are 
 modified according to \code{value}.}
 
+\item{focus_mode}{A single character string. Currently, possible values are 
+\code{"no"} (the default), or \code{"gw"}. When 
+\code{focus_mode = "no"} FOCUS-mode is not activated 
+and nothing special is done, that is only the relevant 
+parameters (as given in \code{value}) are modified in the 
+template par-file \code{x}. When \code{focus_mode = "gw"}, 
+the so called IRRIGATION PARAMETERS are entirely replaced 
+by new one, as would be done by MACRO In FOCUS. 
+Setting \code{focus_mode = "gw"} is especially relevant 
+to skip using a template par-file with the relevant number 
+of substance application per application-year and the number 
+of year intervals in between application-years. A template}
+
 \item{value}{List with 3 named items: \code{g_as_per_ha}, 
 \code{app_j_day} and \code{f_int}. New values of the substance 
 application rate [g as/ ha], application time in Julian 
@@ -126,6 +139,21 @@ nrow( out1b )
 
 
 
+#   Use a method that re-parametrise completely the applications, 
+#   like MACRO In FOCUS, for the same result as above
+par_file_1appln_c <- par_file_1appln
+
+rmacroliteApplications( x = par_file_1appln_c, 
+    focus_mode = "gw" ) <- list(
+    "g_as_per_ha"  = 999, 
+    "app_j_day"    = 183, 
+    "f_int"        = 0.01 ) 
+
+#   Check
+out1c <- rmacroliteApplications( x = par_file_1appln_c ) 
+
+
+
 #   Internal control
 test_1 <- identical( 
     as.numeric( unlist( unique( out1b ) ) ), 
@@ -133,9 +161,13 @@ test_1 <- identical(
 if( !test_1 ){ 
     stop( "Example 1 of rmacroliteApplications()<- failed" ) } 
 
+if( !all( all.equal( out1b, out1c, check.attributes = FALSE ) == TRUE ) ){
+    stop( "rmacroliteApplications() with focus_mode = 'gw' seems to have failed (1 application every year)" )
+}   
+
 #   Clean-up
 rm( par_file_path_1appln, par_file_1appln, par_file_1appln_b, 
-    out1, out1b, test_1 )
+    out1, out1b, test_1, par_file_1appln_c, out1c )
 
 
 
@@ -189,6 +221,21 @@ nrow( out2b )
 
 
 
+#   Use a method that re-parametrise completely the applications, 
+#   like MACRO In FOCUS, for the same result as above
+par_file_2appln_c <- par_file_2appln
+
+rmacroliteApplications( x = par_file_2appln_c, 
+    focus_mode = "gw" ) <- list(
+    "g_as_per_ha"  = c( 999, 899 ), 
+    "app_j_day"    = c( 183, 190 ), 
+    "f_int"        = 0.01 ) 
+
+#   Check
+out2c <- rmacroliteApplications( x = par_file_2appln_c ) 
+
+
+
 #   Internal control
 test_2 <- identical( 
     as.numeric( unlist( unique( out2b ) ) ), 
@@ -196,9 +243,13 @@ test_2 <- identical(
 if( !test_2 ){ 
     stop( "Example 2 of rmacroliteApplications()<- failed" ) } 
 
+if( !all( all.equal( out2b, out2c, check.attributes = FALSE ) == TRUE ) ){
+    stop( "rmacroliteApplications() with focus_mode = 'gw' seems to have failed (2 applications every year)" )
+}   
+
 #   Clean-up
 rm( par_file_path_2appln, par_file_2appln, par_file_2appln_b, 
-    out2, out2b, test_2 )
+    out2, out2b, test_2, par_file_2appln_c, out2c )
 
 
 
@@ -261,6 +312,8 @@ if( !test_3 ){
 
 
 #   Variant 2: solute-free irrigations are not preserved
+#   like it is the case for MACRO In FOCUS with multiple years 
+#   interval between applications
 rmacroliteApplications( x = par_file_biennial_c, 
     keep0conc = FALSE ) <- list(
         "g_as_per_ha"  = c( 999,   1 ), 
@@ -277,6 +330,34 @@ unique( out3c )
 
 nrow( out3c ) 
     # [1] 46
+    
+    
+    
+#   Use a method that re-parametrise completely the applications, 
+#   like MACRO In FOCUS, for the same result as above
+par_file_biennial_d <- par_file_biennial
+
+rmacroliteApplications( x = par_file_biennial_d, 
+    focus_mode = "gw" ) <- list(
+        "g_as_per_ha"    = 999, 
+        "app_j_day"      = 183, 
+        "f_int"          = 0, 
+        "years_interval" = 2 ) 
+
+#   Check
+out3d <- rmacroliteApplications( x = par_file_biennial_d ) 
+
+#   Re-run case 3b to compare it with 3d, the expected 
+#   result from MACRO In FOCUS
+rmacroliteApplications( x = par_file_biennial_b ) <- list(
+    "g_as_per_ha"  = 999, 
+    "app_j_day"    = 183, 
+    "f_int"        = 0 ) 
+
+#   Check
+out3b <- rmacroliteApplications( x = par_file_biennial_b ) 
+
+
 
 #   Internal control
 test_3c <- identical( 
@@ -285,10 +366,15 @@ test_3c <- identical(
 if( !test_3c ){ 
     stop( "Example 3c of rmacroliteApplications()<- failed" ) } 
 
+if( !all( all.equal( out3b, out3d, check.attributes = FALSE ) == TRUE ) ){
+    stop( "rmacroliteApplications() with focus_mode = 'gw' seems to have failed (1 application every 2 years)" )
+}   
+
 
 
 #   Clean-up
 rm( par_file_path_biennial, par_file_biennial, par_file_biennial_b, 
-    out3, out3b, par_file_biennial_c, out3c, test_3, test_3c )
+    out3, out3b, par_file_biennial_c, out3c, test_3, test_3c, 
+    par_file_biennial_d, out3d )
 
 }

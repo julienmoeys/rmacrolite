@@ -8,13 +8,16 @@
 \usage{
 rmacroliteSimPeriod(x, ...)
 
-\method{rmacroliteSimPeriod}{macroParFile}(x, ...)
+\method{rmacroliteSimPeriod}{macroParFile}(x, climate = TRUE, ...)
 }
 \arguments{
 \item{x}{A 'macroParFile' object, such as obtained with 
 \code{\link[rmacrolite]{rmacroliteImportParFile-methods}}.}
 
 \item{\dots}{Not used.}
+
+\item{climate}{Single logical value. If \code{TRUE} (the default), the 
+time-period for the weather data is also extracted.}
 }
 \value{
 Returns a list with 4 items: \code{sim}, a vector 
