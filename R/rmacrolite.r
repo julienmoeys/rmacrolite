@@ -5567,7 +5567,7 @@ rmacroliteClimateFiles.macroParFile <- function(
 #'  to skip using a template par-file with the relevant number 
 #'  of substance application per application-year and the number 
 #'  of year intervals in between application-years. A template 
-#   with the right scenario and crop is enough.
+#'  with the right scenario and crop is enough.
 #'
 #'@param \dots
 #'  Additional parameters passed to specific methods. 
@@ -5767,6 +5767,7 @@ rmacroliteApplications.macroParFile <- function(
             "Argument 'focus_mode' can either be 'no' or 'gw' (currently %s)", 
             focus_mode ) )
     }   
+    
     if( !("list" %in% class( value )) ){
         stop( sprintf( 
             "Argument 'value' should be a list (now class: %s)", 

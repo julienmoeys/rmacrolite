@@ -43,7 +43,8 @@ by new one, as would be done by MACRO In FOCUS.
 Setting \code{focus_mode = "gw"} is especially relevant 
 to skip using a template par-file with the relevant number 
 of substance application per application-year and the number 
-of year intervals in between application-years. A template}
+of year intervals in between application-years. A template 
+with the right scenario and crop is enough.}
 
 \item{value}{List with 3 named items: \code{g_as_per_ha}, 
 \code{app_j_day} and \code{f_int}. New values of the substance 
