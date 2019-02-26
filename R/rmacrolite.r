@@ -5728,7 +5728,7 @@ rmacroliteApplications.macroParFile <- function(
 
 #'@rdname rmacroliteApplications-methods
 #'
-#'@usage rmacroliteApplications( x, keep0conc = TRUE, ... ) <- value
+#'@usage rmacroliteApplications( x, keep0conc = TRUE, focus_mode = "no", ... ) <- value
 #'
 #'@export
 #'

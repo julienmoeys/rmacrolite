@@ -12,7 +12,7 @@ rmacroliteApplications(x, ...)
 
 \method{rmacroliteApplications}{macroParFile}(x, ...)
 
-rmacroliteApplications( x, keep0conc = TRUE, ... ) <- value
+rmacroliteApplications( x, keep0conc = TRUE, focus_mode = "no", ... ) <- value
 
 \method{rmacroliteApplications}{macroParFile}(x, keep0conc = TRUE, ...) <- value
 }
