@@ -5998,6 +5998,33 @@ rmacroliteApplications.macroParFile <- function(
             type  = "SETUP", 
             value = metperiod ) 
         
+        
+        
+        drivingperiod <- rmacroliteGet1Param( 
+             x    = x, 
+             pTag = "DRIVINGPERIOD\t%s", 
+             type = "SETUP" 
+        )   
+        
+        if( !grepl( x = drivingperiod, pattern = year_end_met, fixed = TRUE ) ){
+            stop( sprintf( 
+                "Cannot find the estimated end-year (%s) in DRIVINGPERIOD ('%s')", 
+                year_end_met, drivingperiod ) ) 
+        }else{
+            drivingperiod <- gsub( x = metperiod, 
+                pattern = year_end_met, 
+                replacement = as.character( year_end_new ), 
+                fixed = TRUE )
+        }   
+        
+        x <- rmacroliteChange1Param( 
+            x     = x, 
+            pTag  = "DRIVINGPERIOD\t%s", 
+            type  = "SETUP", 
+            value = drivingperiod ) 
+        
+        
+        
         #   Change CHAPAR
         #   CHAPAR to 0 when same irrigation every year
         #   CHAPAR to 1 when different irrigation
