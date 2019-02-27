@@ -6011,7 +6011,7 @@ rmacroliteApplications.macroParFile <- function(
                 "Cannot find the estimated end-year (%s) in DRIVINGPERIOD ('%s')", 
                 year_end_met, drivingperiod ) ) 
         }else{
-            drivingperiod <- gsub( x = metperiod, 
+            drivingperiod <- gsub( x = drivingperiod, 
                 pattern = year_end_met, 
                 replacement = as.character( year_end_new ), 
                 fixed = TRUE )
