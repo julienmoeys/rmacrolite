@@ -6031,7 +6031,7 @@ rmacroliteApplications.macroParFile <- function(
         
         #   Format the new irrigation parameters for GW
         irrigation <- c(
-            "*******************************", 
+            "********************************", 
             "IRRIGATION PARAMETERS", 
             sprintf( "IRRSAME\t%s", ifelse( 
                 test = value[[ "years_interval" ]] == 1L, 
@@ -6062,7 +6062,8 @@ rmacroliteApplications.macroParFile <- function(
                                     "IRRSTART\t9", 
                                     "IRREND\t9.2", 
                                     sprintf( "AMIR\t%s", amir ), 
-                                    sprintf( "CONCI\t%s", conci_j ), 
+                                    sprintf( "CONCI\t%s", format( 
+                                        conci_j, scientific = FALSE ) ), 
                                     sprintf( "ZFINT\t%s", value[[ "f_int" ]][ j ] ) 
                                 ) ) 
                             } 
