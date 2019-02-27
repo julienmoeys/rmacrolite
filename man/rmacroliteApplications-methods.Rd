@@ -30,7 +30,9 @@ concentration and their application date and
 crop interception will not be altered either. 
 When set to \code{FALSE} even irrigation events 
 with a zero concentration in the original par-file are 
-modified according to \code{value}.}
+modified according to \code{value}. \code{keep0conc} 
+is ignored (because irrelevant) when 
+\code{focus_mode} is \code{"gw"}.}
 
 \item{focus_mode}{A single character string. Currently, possible values are 
 \code{"no"} (the default), or \code{"gw"}. When 
@@ -38,24 +40,35 @@ modified according to \code{value}.}
 and nothing special is done, that is only the relevant 
 parameters (as given in \code{value}) are modified in the 
 template par-file \code{x}. When \code{focus_mode = "gw"}, 
-the so called IRRIGATION PARAMETERS are entirely replaced 
+the so called "IRRIGATION PARAMETERS" are entirely replaced 
 by new one, as would be done by MACRO In FOCUS. 
 Setting \code{focus_mode = "gw"} is especially relevant 
 to skip using a template par-file with the relevant number 
 of substance application per application-year and the number 
-of year intervals in between application-years. A template 
+of year intervals in between application-years, as a template 
 with the right scenario and crop is enough.}
 
-\item{value}{List with 3 named items: \code{g_as_per_ha}, 
-\code{app_j_day} and \code{f_int}. New values of the substance 
-application rate [g as/ ha], application time in Julian 
-day and fraction of the sprayed quantity intercepted by 
-the crop canopy [g as intercepted/ g as sprayed] to be 
-set in the imported par-file (\code{x}). Here is an example 
-R code to convert a date 
-to Julian days: \code{format(as.Date("1901-10-01"),"\%j")}.
+\item{value}{List with 3 or 4 named items: \code{g_as_per_ha}, 
+\code{app_j_day}, \code{f_int} and, when \code{focus_mode} 
+is \code{"gw"}, \code{years_interval}. 
+\code{g_as_per_ha} is the substance application rate in 
+[g as/ ha]. 
+\code{app_j_day} is the application time in Julian 
+day. 
+\code{f_int} is the fraction of the sprayed quantity 
+intercepted by the crop canopy 
+in [g as intercepted/ g as sprayed]. 
+\code{years_interval} is the number of years interval 
+between application-years, 1 indicating an application 
+every year, 2 indicating an application every other year 
+and 3 indicating an application every 3 year.  When 
+\code{focus_mode} is \code{"gw"} and \code{years_interval} 
+is omitted, it will be internally set to 1. Here is an example 
+of R code to convert a date to Julian days: 
+\code{format(as.Date("1901-10-01"),"\%j")}.
 Each item should be a single numeric value or a vector of 
-numeric values. When a single numeric value is passed, 
+numeric values, except \code{years_interval} which is 
+always a single value. When a single numeric value is passed, 
 all relevant irrigation events are attributed the same 
 parameter-value. When a vector of numeric values, it can 
 either be as many values as relevant irrigations over the 
