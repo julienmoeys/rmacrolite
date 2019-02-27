@@ -6036,7 +6036,7 @@ rmacroliteApplications.macroParFile <- function(
             sprintf( "IRRSAME\t%s", ifelse( 
                 test = value[[ "years_interval" ]] == 1L, 
                 yes  = "True", 
-                no   = "False" ) ), 
+                no   = "True" ) ), # For some reasons IRRSAME is also true when irrigation not identical from year to year...
             "CRITDEF\t-1", 
             sprintf( "IRRYEARS\t%s", tot_nb_yrs ), 
             unlist( lapply(
