@@ -11,6 +11,10 @@ CHANGES IN VERSION 0.9.5
         number of applications per year. rmacroliteApplications() 
         accounts for that automatically.
     
+    2019/03/01  rmacroliteInfo() now also adjusts the start 
+        end simulation date as well as the substance application
+        frequency.
+    
 CHANGES IN VERSION 0.9.4
     
     2019/02/13  Renamed an example par-file that possibly 

@@ -1,6 +1,6 @@
 Package: rmacrolite
 Version: 0.9.5
-Date: 2019-02-27
+Date: 2019-03-01
 Author: Julien Moeys [aut, cre]
 Authors@R: c( person( given = "Julien", family = "Moeys", "role" = c("aut", "cre"), "email" = "jules_m78-soiltexture@@yahooDOTfr" ), person( "Centre for Chemical Pesticides (CKB), Swedish University of Agricultural Sciences (SLU)", role = "cph", comment = "Copyright 2013-2016" ), person( "PERFORM Ecophyto project", role = "cph", comment = "Copyright 2013-2016" ) )
 Maintainer: Julien Moeys <jules_m78-soiltexture@yahoo.fr>

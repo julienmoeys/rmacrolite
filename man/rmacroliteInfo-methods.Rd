@@ -24,12 +24,18 @@ preferably produced by MACRO In FOCUS.}
 \item{\dots}{Additional parameters passed to specific methods. 
 Currently not used.}
 
-\item{value}{Vector of character strings named \code{"output_file"}, 
-\code{"type"} and \code{"compound"}. Name and path of 
+\item{value}{A named \code{\link[base]{list}} of character strings or 
+integer. It should contain the items \code{"output_file"}, 
+\code{"type"} and \code{"compound"} (each of these being 
+a single character string), and optionally 
+\code{"years_interval"} (a single integer). Name and path of 
 the output file, type of simulation ("parent"; 
 "parent, intermediate", "metabolite" or 
-"metabolite, intermediate") and name of the compound 
-parametrised in the par-file, respectively}
+"metabolite, intermediate"), name of the compound 
+parametrised in the par-file, and number of years in between 
+application-years (1 for application(s) every year, 2 for 
+application(s) every other year and 3 for application(s) 
+every thord year), respectively.}
 }
 \value{
 Vector of character strings named \code{"output_file"}, 
@@ -78,7 +84,7 @@ rmacroliteInfo( x = par_file )
 #   Modify the parameter
 par_file2 <- par_file
 
-new_info <- c( 
+new_info <- list( 
     "output_file" = "C:/path/to/macro002.bin", 
     "type"        = "metabolite", 
     "compound"    = "GW-Z" )
