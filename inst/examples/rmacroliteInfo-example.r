@@ -46,7 +46,7 @@ rmacroliteInfo( x = par_file2 ) <- new_info
 info <- rmacroliteInfo( x = par_file2 )
 info 
 
-if( !identical( new_info, info ) ){
+if( !identical( unlist( new_info ), info ) ){
     stop( "Test of rmacroliteInfo() failed" ) }
 
 #   Clean-up
