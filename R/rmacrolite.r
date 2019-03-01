@@ -4814,7 +4814,7 @@ rmacroliteInfo.macroParFile <- function(
                 name_i <- names( value )[ i ]
                 
                 if( name_i %in% value_expect[, "name" ] ){
-                    if( (!is.character( value[[ i ]] )) | (length( value[[ i ]] ) != 1L) ) ){
+                    if( (!is.character( value[[ i ]] )) | (length( value[[ i ]] ) != 1L) ){
                         stop( sprintf( 
                             "Argument value[['%s']] should be a character-vector of length 1 (now class: %s and length %s)", 
                             name_i, paste( class( value ), collapse = " " ), 
@@ -4823,7 +4823,7 @@ rmacroliteInfo.macroParFile <- function(
                 }   
                 
                 if( name_i == "years_interval" ){
-                    if( (!is.integer( value[[ i ]] )) | (length( value[[ i ]] ) != 1L) ) ){
+                    if( (!is.integer( value[[ i ]] )) | (length( value[[ i ]] ) != 1L) ){
                         stop( sprintf( 
                             "Argument value[['years_interval']] should be an integer-vector of length 1 (now class: %s and length %s)", 
                             name_i, paste( class( value ), collapse = " " ), 
