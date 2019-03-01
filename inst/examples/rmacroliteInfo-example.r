@@ -31,7 +31,7 @@ rmacroliteInfo( x = par_file )
 #   Modify the parameter
 par_file2 <- par_file
 
-new_info <- c( 
+new_info <- list( 
     "output_file" = "C:/path/to/macro002.bin", 
     "type"        = "metabolite", 
     "compound"    = "GW-Z" )

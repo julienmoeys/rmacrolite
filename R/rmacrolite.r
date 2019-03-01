@@ -4647,12 +4647,18 @@ rmacroliteDiffCoef.macroParFile <- function(
 #'  preferably produced by MACRO In FOCUS.
 #'
 #'@param value
-#'  Vector of character strings named \code{"output_file"}, 
-#'  \code{"type"} and \code{"compound"}. Name and path of 
+#'  A named \code{\link[base]{list}} of character strings or 
+#'  integer. It should contain the items \code{"output_file"}, 
+#'  \code{"type"} and \code{"compound"} (each of these being 
+#'  a single character string), and optionally 
+#'  \code{"years_interval"} (a single integer). Name and path of 
 #'  the output file, type of simulation ("parent"; 
 #'  "parent, intermediate", "metabolite" or 
-#'  "metabolite, intermediate") and name of the compound 
-#'  parametrised in the par-file, respectively
+#'  "metabolite, intermediate"), name of the compound 
+#'  parametrised in the par-file, and number of years in between 
+#'  application-years (1 for application(s) every year, 2 for 
+#'  application(s) every other year and 3 for application(s) 
+#'  every thord year), respectively.
 #'
 #'@param \dots
 #'  Additional parameters passed to specific methods. 
@@ -4792,11 +4798,42 @@ rmacroliteInfo.macroParFile <- function(
             stringsAsFactors = FALSE 
         )   
         
-        if( !is.character( value ) ){
+        if( !("list" %in% class( value )) ){
             stop( sprintf( 
-                "Argument 'value' should be a character-vector (now class: %s)", 
+                "Argument 'value' should be a list (now class: %s)", 
                 paste( class( value ), collapse = ", " ) ) )
         }   
+        
+        if( is.null( names( value ) ) | ("" %in% names( value )) ){
+            stop( "Items in argument 'value' should be labelled." )
+        }   
+        
+        silent <- lapply(
+            X   = 1:length(value), 
+            FUN = function(i){
+                name_i <- names( value )[ i ]
+                
+                if( name_i %in% value_expect[, "name" ] ){
+                    if( (!is.character( value[[ i ]] )) | (length( value[[ i ]] ) != 1L) ) ){
+                        stop( sprintf( 
+                            "Argument value[['%s']] should be a character-vector of length 1 (now class: %s and length %s)", 
+                            name_i, paste( class( value ), collapse = " " ), 
+                            length( value[[ i ]] ) ) ) 
+                    }   
+                }   
+                
+                if( name_i == "years_interval" ){
+                    if( (!is.integer( value[[ i ]] )) | (length( value[[ i ]] ) != 1L) ) ){
+                        stop( sprintf( 
+                            "Argument value[['years_interval']] should be an integer-vector of length 1 (now class: %s and length %s)", 
+                            name_i, paste( class( value ), collapse = " " ), 
+                            length( value[[ i ]] ) ) ) 
+                    }   
+                }   
+                
+                
+            }   
+        )   
         
         if( !any( value_expect[, "name" ] %in% names( value ) ) ){
             stop( sprintf( 
@@ -4824,7 +4861,7 @@ rmacroliteInfo.macroParFile <- function(
                 if( any( sel_row ) ){
                     x[[ "par" ]][ sel_row, "parFile" ] <- 
                         paste( value_expect[ i, "tag" ], 
-                        as.character( value[ value_expect[ i, "name" ] ] ), 
+                        as.character( value[[ value_expect[ i, "name" ] ]] ), 
                         sep = "" )
                 }else{
                     stop( sprintf( 
@@ -4873,7 +4910,7 @@ rmacroliteInfo.macroParFile <- function(
                     "Application %s : %s g/ha of %s on day %s", 
                     1:nrow(appln), 
                     appln[, "g_as_per_ha" ], 
-                    as.character( value[ "compound" ] ), 
+                    as.character( value[[ "compound" ]] ), 
                     appln[, "app_j_day" ] )
                 
                 application_info <- data.frame(
@@ -4900,6 +4937,61 @@ rmacroliteInfo.macroParFile <- function(
                 rownames( x[[ "par" ]] ) <- NULL 
             }   
         }   
+    }   
+    
+    
+    
+    #   Adjust the row "Simulation from YYYYMMDD to YYYYMMDD, application every {year|other year|third year}
+    
+    #   Reset the current start and end date in the information
+    sel_row <- x[[ "par" ]][, "category" ] == "INFORMATION" 
+    sel_row <- sel_row & grepl( 
+        pattern = "simulation from", 
+        x       = tolower( x[[ "par" ]][, "parFile" ] ), 
+        fixed   = TRUE 
+    )   
+    
+    if( sum( sel_row ) > 1 ){
+        warning( "%s rows matching 'Simulation from' in INFORMATION section. It will not be edited." )
+        
+    }else if( sum( sel_row ) == 1 ){
+        #   Fetch the current end- and start-dates
+        sim_period <- rmacroliteSimPeriod( x = x )
+        
+        date_start <- format.POSIXct( 
+            x      = sim_period[[ "sim" ]][ "start" ], 
+            format = "%Y%m%d" )
+        
+        date_end <- format.POSIXct( 
+            x      = sim_period[[ "sim" ]][ "end" ], 
+            format = "%Y%m%d" )
+        
+        sim_from_to <- strsplit( 
+            x     = x[[ "par" ]][ sel_row, "parFile" ], 
+            split = ", ", 
+            fixed = TRUE )[[ 1L ]]
+        
+        sim_from_to[ 1L ] <- sprintf( 
+            "Simulation from %s to %s", 
+            date_start, date_end )
+        
+        if( "years_interval" %in% names( value ) ){
+            if( value[[ "years_interval" ]] == 1L ){
+                sim_from_to[ 2L ] <- "application every year"
+            }else if( value[[ "years_interval" ]] == 2L ){
+                sim_from_to[ 2L ] <- "application every other year"
+            }else if( value[[ "years_interval" ]] == 3L ){
+                sim_from_to[ 2L ] <- "application every third year"
+            }else{
+                sim_from_to[ 2L ] <- sprintf( 
+                    "application every %s year", 
+                    value[[ "years_interval" ]] )
+            }   
+        }   
+        
+        sim_from_to <- paste( sim_from_to, collapse = ", " )
+        
+        x[[ "par" ]][ sel_row, "parFile" ] <- sim_from_to 
     }   
     
     return( x ) 
@@ -5322,7 +5414,7 @@ rmacroliteSimType.macroParFile <- function(
             "set_id" = c(        1L,                   1L,                  1L ), 
             stringsAsFactors = FALSE ) )[[ 1L ]]
         
-        rmacroliteInfo( x = x ) <- c( "type" = "parent" )
+        rmacroliteInfo( x = x ) <- list( "type" = "parent" )
         
     }else if( type == 2L ){    
         # Parent, intermediate -----------------------------
@@ -5338,7 +5430,7 @@ rmacroliteSimType.macroParFile <- function(
         
         x <- output_to_inter( x = x ) 
         
-        rmacroliteInfo( x = x ) <- c( "type" = "parent, intermediate" )
+        rmacroliteInfo( x = x ) <- list( "type" = "parent, intermediate" )
         
     }else if( type == 3L ){    
         # Metabolite, not intermediate ---------------------
@@ -5388,7 +5480,7 @@ rmacroliteSimType.macroParFile <- function(
                 "parFile" ] <- new_output[ i, "to" ]
         }   
         
-        rmacroliteInfo( x = x ) <- c( "type" = "metabolite" )
+        rmacroliteInfo( x = x ) <- list( "type" = "metabolite" )
         
     }else if( type == 4L ){    
         # Metabolite, intermediate -------------------------
@@ -5426,7 +5518,7 @@ rmacroliteSimType.macroParFile <- function(
         
         x <- output_to_inter( x = x ) 
         
-        rmacroliteInfo( x = x ) <- c( "type" = "metabolite, intermediate" )
+        rmacroliteInfo( x = x ) <- list( "type" = "metabolite, intermediate" )
         
     }else{
         stop( sprintf( 
