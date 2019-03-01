@@ -15,6 +15,9 @@ CHANGES IN VERSION 0.9.5
         end simulation date as well as the substance application
         frequency.
     
+    2019/03/01  rmacroliteInfo() now also adjusts the 
+        number of applications (on an application-year).
+    
 CHANGES IN VERSION 0.9.4
     
     2019/02/13  Renamed an example par-file that possibly 
