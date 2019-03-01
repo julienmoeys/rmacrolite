@@ -4935,6 +4935,27 @@ rmacroliteInfo.macroParFile <- function(
                 }   
                 
                 rownames( x[[ "par" ]] ) <- NULL 
+                
+                #   Also fix the number of applications
+                nb_appln <- nrow( application_info ) 
+                
+                sel_row2 <- x[[ "par" ]][, "category" ] == "INFORMATION" 
+                sel_row2 <- sel_row2 & grepl( 
+                    pattern = "number of application", 
+                    x       = tolower( x[[ "par" ]][, "parFile" ] ), 
+                    fixed   = TRUE 
+                )   
+                
+                if( sum( sel_row2 ) > 1 ){
+                    warning( "%s rows matching 'Number of application' in INFORMATION section. It will not be edited." )
+                    
+                }else if( sum( sel_row2 ) == 1 ){
+                    x[[ "par" ]][ sel_row2, "parFile" ] <- 
+                        sprintf( "Number of applications : %s", 
+                            nb_appln ) 
+                }   
+                
+                rm( sel_row, sel_row2 )
             }   
         }   
     }   
