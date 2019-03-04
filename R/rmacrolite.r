@@ -4823,11 +4823,10 @@ rmacroliteInfo.macroParFile <- function(
                 }   
                 
                 if( name_i == "years_interval" ){
-                    if( (!is.integer( value[[ i ]] )) | (length( value[[ i ]] ) != 1L) ){
+                    if( ((value[[ i ]] %% 1) != 0) | (length( value[[ i ]] ) != 1L) ){
                         stop( sprintf( 
-                            "Argument value[['years_interval']] should be an integer-vector of length 1 (now class: %s and length %s)", 
-                            name_i, paste( class( value ), collapse = " " ), 
-                            length( value[[ i ]] ) ) ) 
+                            "Argument value[['years_interval']] should be a single integer value (now %s)", 
+                            paste( value[[ i ]], collapse = ", " ) ) ) 
                     }   
                 }   
                 
