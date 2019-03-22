@@ -4808,6 +4808,18 @@ rmacroliteInfo.macroParFile <- function(
             stop( "Items in argument 'value' should be labelled." )
         }   
         
+        if( "focus_soil" %in% names( value ) ){
+            value_expect <- rbind( 
+                value_expect, 
+                data.frame( 
+                    "name"    = "focus_soil", 
+                    "tag"     = "Scenario : ", 
+                    "not_tag" = NA_character_, 
+                    stringsAsFactors = FALSE 
+                )   
+            )   
+        }   
+        
         silent <- lapply(
             X   = 1:length(value), 
             FUN = function(i){
