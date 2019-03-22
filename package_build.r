@@ -37,7 +37,7 @@ pdu_detach( pkgName = pkgName )
 pdu_pkgDescription( 
     pkgName     = pkgName, 
     pkgDir      = pkgDir, 
-    pkgVersion  = "0.9.5", 
+    pkgVersion  = "0.9.6", 
     pkgDepends  = NULL, 
     pkgImports  = c( "macroutils2", "utils" ), 
     pkgSuggests = "tools", 
