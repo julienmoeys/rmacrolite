@@ -4646,6 +4646,12 @@ rmacroliteDiffCoef.macroParFile <- function(
 #'  \code{\link[rmacrolite]{rmacroliteImportParFile-methods}}, and 
 #'  preferably produced by MACRO In FOCUS.
 #'
+#'@param warn
+#'  Single logical value. If \code{TRUE}, a warning is raised 
+#'  whenever \code{x} does not contain an information section.
+#'  If \code{FALSE}, the function proceeds silently. Only 
+#'  relevant when setting new information.
+#'
 #'@param value
 #'  A named \code{\link[base]{list}} of character strings or 
 #'  integer. It should contain the items \code{"output_file"}, 
@@ -4784,13 +4790,17 @@ rmacroliteInfo.macroParFile <- function(
 #'
 #'@usage \method{rmacroliteInfo}{macroParFile}(x, ...) <- value
 #'
-`rmacroliteInfo<-.macroParFile` <- function( x, ..., value ){ 
-    oldInfo <- rmacroliteInfo( x = x ) 
+`rmacroliteInfo<-.macroParFile` <- function( x, warn = TRUE, ..., value ){ 
+    x_has_info <- "INFORMATION" %in% x[[ "par" ]][, "category" ]
     
-    if( !("INFORMATION" %in% x[[ "par" ]][, "category" ]) ){
-        warning( "'x' does not contain any INFORMATION section. Information in 'value' could not be set." )
+    if( !x_has_info ){
+        if( warn ){
+            warning( "'x' does not contain any INFORMATION section. Information in 'value' could not be set." )
+        }   
         
     }else{
+        oldInfo <- rmacroliteInfo( x = x ) 
+        
         value_expect <- data.frame( 
             "name"    = c(    "output_file",                "type",            "compound" ), 
             "tag"     = c( "Output File = ", "Type of compound = ",         "Compound : " ), 
@@ -4969,62 +4979,64 @@ rmacroliteInfo.macroParFile <- function(
                 rm( sel_row, sel_row2 )
             }   
         }   
-    }   
-    
-    
-    
-    #   Adjust the row "Simulation from YYYYMMDD to YYYYMMDD, application every {year|other year|third year}
-    
-    #   Reset the current start and end date in the information
-    sel_row <- x[[ "par" ]][, "category" ] == "INFORMATION" 
-    sel_row <- sel_row & grepl( 
-        pattern = "simulation from", 
-        x       = tolower( x[[ "par" ]][, "parFile" ] ), 
-        fixed   = TRUE 
-    )   
-    
-    if( sum( sel_row ) > 1 ){
-        warning( "%s rows matching 'Simulation from' in INFORMATION section. It will not be edited." )
         
-    }else if( sum( sel_row ) == 1 ){
-        #   Fetch the current end- and start-dates
-        sim_period <- rmacroliteSimPeriod( x = x )
         
-        date_start <- format.POSIXct( 
-            x      = sim_period[[ "sim" ]][ "start" ], 
-            format = "%Y%m%d" )
         
-        date_end <- format.POSIXct( 
-            x      = sim_period[[ "sim" ]][ "end" ], 
-            format = "%Y%m%d" )
+        #   Adjust the row "Simulation from YYYYMMDD to YYYYMMDD, application every {year|other year|third year}
         
-        sim_from_to <- strsplit( 
-            x     = x[[ "par" ]][ sel_row, "parFile" ], 
-            split = ", ", 
-            fixed = TRUE )[[ 1L ]]
+        #   Reset the current start and end date in the information
+        sel_row <- x[[ "par" ]][, "category" ] == "INFORMATION" 
+        sel_row <- sel_row & grepl( 
+            pattern = "simulation from", 
+            x       = tolower( x[[ "par" ]][, "parFile" ] ), 
+            fixed   = TRUE 
+        )   
         
-        sim_from_to[ 1L ] <- sprintf( 
-            "Simulation from %s to %s", 
-            date_start, date_end )
-        
-        if( "years_interval" %in% names( value ) ){
-            if( value[[ "years_interval" ]] == 1L ){
-                sim_from_to[ 2L ] <- "application every year"
-            }else if( value[[ "years_interval" ]] == 2L ){
-                sim_from_to[ 2L ] <- "application every other year"
-            }else if( value[[ "years_interval" ]] == 3L ){
-                sim_from_to[ 2L ] <- "application every third year"
-            }else{
-                sim_from_to[ 2L ] <- sprintf( 
-                    "application every %s year", 
-                    value[[ "years_interval" ]] )
+        if( sum( sel_row ) > 1 ){
+            warning( "%s rows matching 'Simulation from' in INFORMATION section. It will not be edited." )
+            
+        }else if( sum( sel_row ) == 1 ){
+            #   Fetch the current end- and start-dates
+            sim_period <- rmacroliteSimPeriod( x = x )
+            
+            date_start <- format.POSIXct( 
+                x      = sim_period[[ "sim" ]][ "start" ], 
+                format = "%Y%m%d" )
+            
+            date_end <- format.POSIXct( 
+                x      = sim_period[[ "sim" ]][ "end" ], 
+                format = "%Y%m%d" )
+            
+            sim_from_to <- strsplit( 
+                x     = x[[ "par" ]][ sel_row, "parFile" ], 
+                split = ", ", 
+                fixed = TRUE )[[ 1L ]]
+            
+            sim_from_to[ 1L ] <- sprintf( 
+                "Simulation from %s to %s", 
+                date_start, date_end )
+            
+            if( "years_interval" %in% names( value ) ){
+                if( value[[ "years_interval" ]] == 1L ){
+                    sim_from_to[ 2L ] <- "application every year"
+                }else if( value[[ "years_interval" ]] == 2L ){
+                    sim_from_to[ 2L ] <- "application every other year"
+                }else if( value[[ "years_interval" ]] == 3L ){
+                    sim_from_to[ 2L ] <- "application every third year"
+                }else{
+                    sim_from_to[ 2L ] <- sprintf( 
+                        "application every %s year", 
+                        value[[ "years_interval" ]] )
+                }   
             }   
+            
+            sim_from_to <- paste( sim_from_to, collapse = ", " )
+            
+            x[[ "par" ]][ sel_row, "parFile" ] <- sim_from_to 
         }   
-        
-        sim_from_to <- paste( sim_from_to, collapse = ", " )
-        
-        x[[ "par" ]][ sel_row, "parFile" ] <- sim_from_to 
     }   
+    
+    
     
     return( x ) 
 }   
