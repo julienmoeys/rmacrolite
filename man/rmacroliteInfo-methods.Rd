@@ -12,9 +12,9 @@ rmacroliteInfo(x, ...)
 
 \method{rmacroliteInfo}{macroParFile}(x, ...)
 
-rmacroliteInfo( x, ... ) <- value
+rmacroliteInfo( x, warn = TRUE, ... ) <- value
 
-\method{rmacroliteInfo}{macroParFile}(x, ...) <- value
+\method{rmacroliteInfo}{macroParFile}(x, warn = TRUE, ...) <- value
 }
 \arguments{
 \item{x}{A \code{macroParFile}, as imported with 

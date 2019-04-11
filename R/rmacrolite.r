@@ -4772,7 +4772,7 @@ rmacroliteInfo.macroParFile <- function(
 
 #'@rdname rmacroliteInfo-methods
 #'
-#'@usage rmacroliteInfo( x, ... ) <- value
+#'@usage rmacroliteInfo( x, warn = TRUE, ... ) <- value
 #'
 #'@export
 #'
@@ -4788,7 +4788,7 @@ rmacroliteInfo.macroParFile <- function(
 #'
 #'@export 
 #'
-#'@usage \method{rmacroliteInfo}{macroParFile}(x, ...) <- value
+#'@usage \method{rmacroliteInfo}{macroParFile}(x, warn = TRUE, ...) <- value
 #'
 `rmacroliteInfo<-.macroParFile` <- function( x, warn = TRUE, ..., value ){ 
     x_has_info <- "INFORMATION" %in% x[[ "par" ]][, "category" ]
