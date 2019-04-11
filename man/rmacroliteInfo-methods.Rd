@@ -36,6 +36,11 @@ parametrised in the par-file, and number of years in between
 application-years (1 for application(s) every year, 2 for 
 application(s) every other year and 3 for application(s) 
 every thord year), respectively.}
+
+\item{warn}{Single logical value. If \code{TRUE}, a warning is raised 
+whenever \code{x} does not contain an information section.
+If \code{FALSE}, the function proceeds silently. Only 
+relevant when setting new information.}
 }
 \value{
 Vector of character strings named \code{"output_file"}, 

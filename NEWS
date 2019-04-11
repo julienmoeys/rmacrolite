@@ -1,6 +1,12 @@
     
     package: 'rmacrolite'
 
+CHANGES IN VERSION 0.9.7
+    
+    2019/04/11  Fix a bug in rmacroliteInfo() that caused
+        problems when working with MACRO 5.2 par-files
+        (not INFORMATION section)
+    
 CHANGES IN VERSION 0.9.6
     
     2019/03/22  rmacroliteInfo() can now also change the 
