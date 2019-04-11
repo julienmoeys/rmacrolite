@@ -24,6 +24,11 @@ preferably produced by MACRO In FOCUS.}
 \item{\dots}{Additional parameters passed to specific methods. 
 Currently not used.}
 
+\item{warn}{Single logical value. If \code{TRUE}, a warning is raised 
+whenever \code{x} does not contain an information section.
+If \code{FALSE}, the function proceeds silently. Only 
+relevant when setting new information.}
+
 \item{value}{A named \code{\link[base]{list}} of character strings or 
 integer. It should contain the items \code{"output_file"}, 
 \code{"type"} and \code{"compound"} (each of these being 
@@ -36,11 +41,6 @@ parametrised in the par-file, and number of years in between
 application-years (1 for application(s) every year, 2 for 
 application(s) every other year and 3 for application(s) 
 every thord year), respectively.}
-
-\item{warn}{Single logical value. If \code{TRUE}, a warning is raised 
-whenever \code{x} does not contain an information section.
-If \code{FALSE}, the function proceeds silently. Only 
-relevant when setting new information.}
 }
 \value{
 Vector of character strings named \code{"output_file"}, 

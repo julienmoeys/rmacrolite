@@ -4776,7 +4776,7 @@ rmacroliteInfo.macroParFile <- function(
 #'
 #'@export
 #'
-`rmacroliteInfo<-` <- function( x, ..., value ){ 
+`rmacroliteInfo<-` <- function( x, warn = TRUE, ..., value ){ 
     UseMethod( "rmacroliteInfo<-" )
 }   
 
