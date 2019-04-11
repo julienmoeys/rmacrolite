@@ -41,7 +41,7 @@ pdu_pkgDescription(
     pkgDepends  = NULL, 
     pkgImports  = c( "macroutils2", "utils" ), 
     pkgSuggests = "tools", 
-    RVersion    = NULL 
+    RVersion    = "R (>= 3.1.0)" 
 )   
 
 #   Tools used in rmacroliteImportParFile-examples.r
