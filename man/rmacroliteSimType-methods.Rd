@@ -12,9 +12,9 @@ rmacroliteSimType(x, ...)
 
 \method{rmacroliteSimType}{macroParFile}(x, ...)
 
-rmacroliteSimType( x, ... ) <- value
+rmacroliteSimType( x, warn = TRUE, ... ) <- value
 
-\method{rmacroliteSimType}{macroParFile}(x, ...) <- value
+\method{rmacroliteSimType}{macroParFile}(x, warn = TRUE, ...) <- value
 }
 \arguments{
 \item{x}{A \code{macroParFile}, as imported with 
