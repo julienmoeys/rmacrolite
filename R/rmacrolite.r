@@ -5196,11 +5196,11 @@ rmacroliteSimType.macroParFile <- function(
 
 #'@rdname rmacroliteSimType-methods
 #'
-#'@usage rmacroliteSimType( x, ... ) <- value
+#'@usage rmacroliteSimType( x, warn = TRUE, ... ) <- value
 #'
 #'@export
 #'
-`rmacroliteSimType<-` <- function( x, ..., value ){ 
+`rmacroliteSimType<-` <- function( x, warn = TRUE, ..., value ){ 
     UseMethod( "rmacroliteSimType<-" )
 }   
 
@@ -5212,9 +5212,9 @@ rmacroliteSimType.macroParFile <- function(
 #'
 #'@export 
 #'
-#'@usage \method{rmacroliteSimType}{macroParFile}(x, ...) <- value
+#'@usage \method{rmacroliteSimType}{macroParFile}(x, warn = TRUE, ...) <- value
 #'
-`rmacroliteSimType<-.macroParFile` <- function( x, ..., value ){ 
+`rmacroliteSimType<-.macroParFile` <- function( x, warn = TRUE, ..., value ){ 
     x_type <- rmacroliteSimType( x = x )[['type']]
     
     if( x_type != 1L ){
@@ -5458,7 +5458,7 @@ rmacroliteSimType.macroParFile <- function(
             "set_id" = c(        1L,                   1L,                  1L ), 
             stringsAsFactors = FALSE ) )[[ 1L ]]
         
-        rmacroliteInfo( x = x ) <- list( "type" = "parent" )
+        rmacroliteInfo( x = x, warn = warn ) <- list( "type" = "parent" )
         
     }else if( type == 2L ){    
         # Parent, intermediate -----------------------------
@@ -5474,7 +5474,7 @@ rmacroliteSimType.macroParFile <- function(
         
         x <- output_to_inter( x = x ) 
         
-        rmacroliteInfo( x = x ) <- list( "type" = "parent, intermediate" )
+        rmacroliteInfo( x = x, warn = warn ) <- list( "type" = "parent, intermediate" )
         
     }else if( type == 3L ){    
         # Metabolite, not intermediate ---------------------
@@ -5524,7 +5524,7 @@ rmacroliteSimType.macroParFile <- function(
                 "parFile" ] <- new_output[ i, "to" ]
         }   
         
-        rmacroliteInfo( x = x ) <- list( "type" = "metabolite" )
+        rmacroliteInfo( x = x, warn = warn ) <- list( "type" = "metabolite" )
         
     }else if( type == 4L ){    
         # Metabolite, intermediate -------------------------
@@ -5562,7 +5562,7 @@ rmacroliteSimType.macroParFile <- function(
         
         x <- output_to_inter( x = x ) 
         
-        rmacroliteInfo( x = x ) <- list( "type" = "metabolite, intermediate" )
+        rmacroliteInfo( x = x, warn = warn ) <- list( "type" = "metabolite, intermediate" )
         
     }else{
         stop( sprintf( 
