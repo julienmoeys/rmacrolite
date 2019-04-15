@@ -25,6 +25,11 @@ intermediate simulation output.}
 \item{\dots}{Additional parameters passed to specific methods. 
 Currently not used.}
 
+\item{warn}{Argument passed to 
+\code{\link[rmacrolite:rmacroliteInfo-methods]{rmacroliteInfo}}.
+See \code{\link[rmacrolite:rmacroliteInfo-methods]{rmacroliteInfo}}
+for details.}
+
 \item{value}{A \code{\link[base]{list}} with two items. The items 
 can be named \code{"type"} and \code{"drivingfile"}. 
 The first item (\code{"type"}) should be a single 

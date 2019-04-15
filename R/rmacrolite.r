@@ -5070,6 +5070,12 @@ rmacroliteInfo.macroParFile <- function(
 #'  file MUST be from a parent substance, and not an 
 #'  intermediate simulation output. 
 #'
+#'@param warn
+#'  Argument passed to 
+#'  \code{\link[rmacrolite:rmacroliteInfo-methods]{rmacroliteInfo}}.
+#'  See \code{\link[rmacrolite:rmacroliteInfo-methods]{rmacroliteInfo}}
+#'  for details.
+#'
 #'@param \dots
 #'  Additional parameters passed to specific methods. 
 #'  Currently not used.
