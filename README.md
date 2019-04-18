@@ -171,7 +171,7 @@ need to install the package [devtools][] first. It is
 available on CRAN and can be easily installed. Simply type 
 `install.packages("devtools")` in R command prompt. See also 
 the package 
-[README][https://cran.r-project.org/web/packages/devtools/readme/README.html] 
+[README](https://cran.r-project.org/web/packages/devtools/readme/README.html) 
 page.
 
 You can then install the development version of `macroutils2` 
@@ -194,7 +194,7 @@ objects otherwise invisible to end-users; sourced-code may
 be accidentally modified by the user; lack of traceability), 
 but may be useful to some users, for example with restricted 
 possibilities to install new R packages, as a 
-[bootstrap][https://en.wikipedia.org/wiki/Bootstrapping].
+[bootstrap](https://en.wikipedia.org/wiki/Bootstrapping).
 
 First, open the following `.r`-file 
 https://raw.githubusercontent.com/julienmoeys/rmacrolite/master/R/rmacrolite.r 
@@ -251,7 +251,7 @@ Credits
 The original version of this tool (rmacro`) was funded 
 by the R&D project PERFORM (2013-2016; Funding: 
 "Pour et Sur le Plan Ecophyto" (PSPE)), in a collaboration 
-between [INRA][http://www.inra.fr/] Versailles-Grignon 
+between [INRA](http://www.inra.fr/) Versailles-Grignon 
 (Sabine Karen Lammoglia and Laure Mamy) and [SLU][slu] Uppsala 
 (Julien Moeys, with a significant contribution from Mats Larsbo 
 concerning the core MACRO model).
